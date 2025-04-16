@@ -39,7 +39,7 @@ export default function NavBar() {
           </p>
         </div>
 
-        {/* Button Explore centered */}
+        {/* Button */}
         <div className="w-full flex justify-center mt-10">
           <button className="border border-white px-6 py-2 text-xs tracking-wider hover:bg-white hover:text-black transition duration-300">
             EXPLORE

@@ -7,7 +7,7 @@ export default function Footers() {
     <footer className="relative bg-black text-white h-[140px] w-full">
       {/* Background Image */}
       <img
-        src="/background2.png" // Ganti dengan path gambar kamu
+        src="/background2.png"
         alt="Footer Background"
         className="absolute inset-0 w-full h-full object-cover opacity-60 z-0"
       />
@@ -18,7 +18,7 @@ export default function Footers() {
           {/* Left Text */}
           <span className="text-white">Copyright © 2023 XIDE</span>
 
-          {/* Center Logo + Tagline */}
+          {/* Logo */}
           <div className="text-center space-y-1">
             <div className="flex flex-col items-center justify-center">
               <img
@@ -35,7 +35,7 @@ export default function Footers() {
             </p>
           </div>
 
-          {/* Right Socials + Credit */}
+          {/* Icons */}
           <div className="flex flex-col items-end space-y-1">
             <div className="flex space-x-3 text-lg">
               <FaInstagram />

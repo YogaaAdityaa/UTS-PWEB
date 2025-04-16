@@ -31,7 +31,7 @@ export default function Menu() {
               </p>
             </div>
 
-            {/* Arrow Button */}
+            {/* Button */}
             <button className="absolute top-1/2 left-210 -translate-y-1/2 w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-black transition">
               &rarr;
             </button>
