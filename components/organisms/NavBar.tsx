@@ -1,13 +1,43 @@
+"use client";
 import Image from 'next/image';
+import Link from 'next/link';
+import { supabase } from '../../utils/supabaseClient';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { User } from "@supabase/supabase-js";
 
 export default function NavBar() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data.user);
+    };
+    getUser();
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    setLoading(true);
+    await supabase.auth.signOut();
+    setLoading(false);
+    router.push('/');
+  };
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black text-white font-serif">
       <Image
         src="/bg_wine.png"
         alt="background"
-        layout="fill"
-        objectFit="cover"
+        fill
+        style={{ objectFit: "cover" }}
         className="z-0"
       />
 
@@ -22,7 +52,15 @@ export default function NavBar() {
             <Image src="/logo.png" alt="Logo" width={20} height={20} />
             <span className="text-xs tracking-widest leading-3">LIQUID<br />MAESTRO</span>
           </div>
-          <div>
+          <div className="flex items-center space-x-4">
+            {!user && (
+              <Link href="/login">
+                <button className="border border-white px-4 py-1 text-xs rounded hover:bg-white hover:text-black transition duration-300">Login</button>
+              </Link>
+            )}
+            {user && (
+              <button className="border border-white px-4 py-1 text-xs rounded hover:bg-white hover:text-black transition duration-300" onClick={handleLogout} disabled={loading}>Logout</button>
+            )}
             <button className="text-white text-3xl">≡</button>
           </div>
         </div>
